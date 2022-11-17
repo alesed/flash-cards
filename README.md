@@ -24,4 +24,4 @@ School project in React for creating sets of cards to practice before exam.
 ## Contributors
 
 - Aleš Sedláček (xsedla11) [Github](https://github.com/alesed)
-- Patrik Martínek (xmartin9) [Github](https://github.com/patrikma)
+- Patrik Martinek (xmartin9) [Github](https://github.com/patrikma)
