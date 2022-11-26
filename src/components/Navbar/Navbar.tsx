@@ -1,4 +1,5 @@
 import { MouseEvent, useState } from 'react';
+import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -13,11 +14,11 @@ import MenuItem from '@mui/material/MenuItem';
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
 import MenuIcon from '@mui/icons-material/Menu';
 
-const settings = ['Account', 'Logout']; // TODO: export to layout?
+import { AppPage } from '../../App';
 
 type Props = {
 	title: string;
-	pages: string[];
+	pages: AppPage[];
 };
 
 const Navbar = ({ title, pages }: Props) => {
@@ -46,22 +47,22 @@ const Navbar = ({ title, pages }: Props) => {
 					<ViewCarouselIcon
 						sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
 					/>
-					<Typography
-						variant="h5"
-						noWrap
-						component="a"
-						href="/"
-						sx={{
-							display: { xs: 'none', md: 'flex' },
-							fontFamily: 'monospace',
-							fontWeight: 700,
-							letterSpacing: '.3rem',
-							color: 'inherit',
-							textDecoration: 'none'
-						}}
-					>
-						{title}
-					</Typography>
+					<Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+						<Typography
+							variant="h5"
+							noWrap
+							sx={{
+								display: { xs: 'none', md: 'flex' },
+								fontFamily: 'monospace',
+								fontWeight: 700,
+								letterSpacing: '.3rem',
+								color: 'inherit',
+								textDecoration: 'none'
+							}}
+						>
+							{title}
+						</Typography>
+					</Link>
 
 					<Box
 						sx={{
@@ -94,9 +95,15 @@ const Navbar = ({ title, pages }: Props) => {
 							}}
 						>
 							{pages.map(page => (
-								<MenuItem key={page} onClick={handleCloseNavMenu}>
-									<Typography textAlign="center">{page}</Typography>
-								</MenuItem>
+								<Link
+									key={page.name}
+									to={page.path}
+									style={{ textDecoration: 'none', color: 'inherit' }}
+								>
+									<MenuItem onClick={handleCloseNavMenu}>
+										<Typography textAlign="center">{page.name}</Typography>
+									</MenuItem>
+								</Link>
 							))}
 						</Menu>
 					</Box>
@@ -131,15 +138,21 @@ const Navbar = ({ title, pages }: Props) => {
 							}
 						}}
 					>
-						{pages.map(page => (
-							<Button
-								variant="outlined"
-								key={page}
-								onClick={handleCloseNavMenu}
-								sx={{ my: 2, color: 'white', display: 'block', mr: 1 }}
+						{[...pages].reverse().map(page => (
+							<Link
+								key={page.name}
+								to={page.path}
+								style={{ textDecoration: 'none' }}
 							>
-								{page}
-							</Button>
+								<Button
+									variant="outlined"
+									key={page.name}
+									onClick={handleCloseNavMenu}
+									sx={{ my: 2, color: 'white', display: 'block', mr: 1 }}
+								>
+									{page.name}
+								</Button>
+							</Link>
 						))}
 					</Box>
 
@@ -164,11 +177,17 @@ const Navbar = ({ title, pages }: Props) => {
 							open={!!anchorElUser}
 							onClose={handleCloseUserMenu}
 						>
-							{settings.map(setting => (
-								<MenuItem key={setting} onClick={handleCloseUserMenu}>
-									<Typography textAlign="center">{setting}</Typography>
+							<Link
+								to="/login"
+								style={{ textDecoration: 'none', color: 'inherit' }}
+							>
+								<MenuItem onClick={handleCloseUserMenu}>
+									<Typography textAlign="center">Login/Register</Typography>
 								</MenuItem>
-							))}
+							</Link>
+							<MenuItem onClick={handleCloseUserMenu}>
+								<Typography textAlign="center">Logout</Typography>
+							</MenuItem>
 						</Menu>
 					</Box>
 				</Toolbar>
