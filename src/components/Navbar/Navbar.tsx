@@ -15,6 +15,7 @@ import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { AppPage } from '../../App';
+import useLoggedInUser from '../../hooks/useLoggedInUser';
 
 type Props = {
 	title: string;
@@ -24,6 +25,8 @@ type Props = {
 const Navbar = ({ title, pages }: Props) => {
 	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+	const user = useLoggedInUser();
 
 	const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
 		setAnchorElNav(event.currentTarget);
@@ -159,7 +162,7 @@ const Navbar = ({ title, pages }: Props) => {
 					<Box sx={{ flexGrow: 0 }}>
 						<Tooltip title="Open settings">
 							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-								<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+								<Avatar alt="U" src="/static/images/avatar/2.jpg" />
 							</IconButton>
 						</Tooltip>
 						<Menu
@@ -177,17 +180,21 @@ const Navbar = ({ title, pages }: Props) => {
 							open={!!anchorElUser}
 							onClose={handleCloseUserMenu}
 						>
-							<Link
-								to="/login"
-								style={{ textDecoration: 'none', color: 'inherit' }}
-							>
+							{!user && (
+								<Link
+									to="/login"
+									style={{ textDecoration: 'none', color: 'inherit' }}
+								>
+									<MenuItem onClick={handleCloseUserMenu}>
+										<Typography textAlign="center">Login</Typography>
+									</MenuItem>
+								</Link>
+							)}
+							{user && (
 								<MenuItem onClick={handleCloseUserMenu}>
-									<Typography textAlign="center">Login/Register</Typography>
+									<Typography textAlign="center">Logout</Typography>
 								</MenuItem>
-							</Link>
-							<MenuItem onClick={handleCloseUserMenu}>
-								<Typography textAlign="center">Logout</Typography>
-							</MenuItem>
+							)}
 						</Menu>
 					</Box>
 				</Toolbar>
