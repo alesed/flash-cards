@@ -4,7 +4,7 @@ import {
 	getAuth,
 	onAuthStateChanged,
 	signInWithEmailAndPassword,
-	signOut,
+	signOut as signOutFirebase,
 	User
 } from 'firebase/auth';
 
@@ -20,13 +20,13 @@ initializeApp({
 
 const auth = getAuth();
 
-export const register = (email: string, password: string) =>
+export const signUp = (email: string, password: string) =>
 	createUserWithEmailAndPassword(auth, email, password);
 
-export const login = (email: string, password: string) =>
+export const signIn = (email: string, password: string) =>
 	signInWithEmailAndPassword(auth, email, password);
 
-export const logout = () => signOut(auth);
+export const signOut = () => signOutFirebase(auth);
 
 export const onAuthChanged = (callback: (u: User | null) => void) =>
 	onAuthStateChanged(auth, callback);
