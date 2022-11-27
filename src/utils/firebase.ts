@@ -8,12 +8,8 @@ import {
 	User
 } from 'firebase/auth';
 
-console.log(import.meta.env.FIREBASE_API_KEY);
-
 initializeApp({
-	apiKey:
-		import.meta.env.FIREBASE_API_KEY ||
-		'AIzaSyAim1WrJhJS_Nq63fSR60PWLgSqjmZrHEY',
+	apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
 	authDomain: 'flash-cards-pv247.firebaseapp.com',
 	projectId: 'flash-cards-pv247',
 	storageBucket: 'flash-cards-pv247.appspot.com',
