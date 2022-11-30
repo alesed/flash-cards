@@ -1,4 +1,3 @@
-import { AddCard } from '@mui/icons-material';
 import {
 	Box,
 	Container,
@@ -10,6 +9,7 @@ import {
 } from '@mui/material';
 import { FormEvent } from 'react';
 
+import NewCard from '../components/NewCard/NewCard';
 import useField from '../hooks/useField';
 
 const handleFormSubmit = async (e: FormEvent) => {
@@ -61,8 +61,18 @@ const Create = () => {
 				<Divider />
 				<Box>
 					{/* TODO: array of AddCard components */}
-					<AddCard />
+					<NewCard />
+					<NewCard />
+					<NewCard />
+					<NewCard />
+					<NewCard />
+					<NewCard />
+					<NewCard />
+					<NewCard />
+					<NewCard />
+					{/* TODO: Add a card component */}
 				</Box>
+				{/* TODO: Create button */}
 			</Paper>
 		</Container>
 	);
