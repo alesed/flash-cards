@@ -38,7 +38,7 @@ const UserSets: FC = () => {
 		};
 	});
 
-	return <SetsList sets={sets} title="All sets" />;
+	return <SetsList sets={sets} title="My sets" />;
 };
 
 export default UserSets;
