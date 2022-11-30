@@ -1,3 +1,4 @@
+import { AddCard } from '@mui/icons-material';
 import {
 	Box,
 	Container,
@@ -58,6 +59,10 @@ const Create = () => {
 					</Box>
 				</Box>
 				<Divider />
+				<Box>
+					{/* TODO: array of AddCard components */}
+					<AddCard />
+				</Box>
 			</Paper>
 		</Container>
 	);
