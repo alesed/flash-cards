@@ -7,6 +7,7 @@ import { UserProvider } from './hooks/useLoggedInUser';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Sets from './pages/Sets';
+import UserSets from './pages/UserSets';
 import { theme } from './utils/theme';
 
 export type AppPage = {
@@ -37,6 +38,7 @@ const App = () => {
 								/>
 							))}
 							<Route path="/login" element={<Login />} />
+							<Route path="/user-sets" element={<UserSets />} />
 						</Routes>
 					</Container>
 				</BrowserRouter>
