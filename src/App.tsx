@@ -3,7 +3,6 @@ import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Navbar from './components/Navbar/Navbar';
-import useLoggedInUser from './hooks/useLoggedInUser';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Sets from './pages/Sets';

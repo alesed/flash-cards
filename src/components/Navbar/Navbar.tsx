@@ -16,7 +16,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import { AppPage } from '../../App';
 import useLoggedInUser from '../../hooks/useLoggedInUser';
-import { signOut } from '../../utils/firebase';
+import { signOut } from '../../utils/firebase/auth';
 
 type Props = {
 	title: string;
@@ -189,6 +189,11 @@ const Navbar = ({ title, pages }: Props) => {
 							open={!!anchorElUser}
 							onClose={handleCloseUserMenu}
 						>
+							{user && (
+								<MenuItem disabled divider>
+									<Typography textAlign="center">{user.email}</Typography>
+								</MenuItem>
+							)}
 							{!user && (
 								<Link
 									to="/login"

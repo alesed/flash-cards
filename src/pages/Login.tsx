@@ -6,11 +6,13 @@ import {
 	TextField,
 	Typography
 } from '@mui/material';
+import { FirebaseError } from 'firebase/app';
 import { FC, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import useField from '../hooks/useField';
-import { signIn, signUp } from '../utils/firebase';
+import { signIn, signUp } from '../utils/firebase/auth';
+import { mapFirebaseAuthError } from '../utils/firebase/error-mapping';
 
 const Login: FC = () => {
 	const navigate = useNavigate();
@@ -27,9 +29,9 @@ const Login: FC = () => {
 			isSignUp ? await signUp(email, password) : await signIn(email, password);
 			navigate('/');
 		} catch (error) {
-			setSubmitError(
-				(error as { message?: string })?.message ?? 'Unknown error occurred'
-			);
+			const firebaseError = error as FirebaseError;
+			const message = mapFirebaseAuthError(firebaseError);
+			setSubmitError(message);
 		}
 	};
 
