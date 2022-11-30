@@ -16,6 +16,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import { AppPage } from '../../App';
 import useLoggedInUser from '../../hooks/useLoggedInUser';
+import { signOut } from '../../utils/firebase/auth';
 
 type Props = {
 	title: string;
@@ -41,6 +42,11 @@ const Navbar = ({ title, pages }: Props) => {
 
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
+	};
+
+	const handleLogout = async () => {
+		await signOut();
+		handleCloseUserMenu();
 	};
 
 	return (
@@ -162,7 +168,10 @@ const Navbar = ({ title, pages }: Props) => {
 					<Box sx={{ flexGrow: 0 }}>
 						<Tooltip title="Open settings">
 							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-								<Avatar alt="U" src="/static/images/avatar/2.jpg" />
+								<Avatar
+									alt={user?.email?.toUpperCase()}
+									src="/static/images/avatar/2.jpg"
+								/>
 							</IconButton>
 						</Tooltip>
 						<Menu
@@ -180,6 +189,11 @@ const Navbar = ({ title, pages }: Props) => {
 							open={!!anchorElUser}
 							onClose={handleCloseUserMenu}
 						>
+							{user && (
+								<MenuItem disabled divider>
+									<Typography textAlign="center">{user.email}</Typography>
+								</MenuItem>
+							)}
 							{!user && (
 								<Link
 									to="/login"
@@ -191,7 +205,7 @@ const Navbar = ({ title, pages }: Props) => {
 								</Link>
 							)}
 							{user && (
-								<MenuItem onClick={handleCloseUserMenu}>
+								<MenuItem onClick={handleLogout}>
 									<Typography textAlign="center">Logout</Typography>
 								</MenuItem>
 							)}
