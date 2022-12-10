@@ -6,6 +6,7 @@ import Navbar from './components/Navbar/Navbar';
 import { UserProvider } from './hooks/useLoggedInUser';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Play from './pages/Play';
 import Sets from './pages/Sets';
 import UserSets from './pages/UserSets';
 import { theme } from './utils/theme';
@@ -39,6 +40,7 @@ const App = () => {
 							))}
 							<Route path="/login" element={<Login />} />
 							<Route path="/user-sets" element={<UserSets />} />
+							<Route path="/set/:setId/play" element={<Play />} />
 						</Routes>
 					</Container>
 				</BrowserRouter>
