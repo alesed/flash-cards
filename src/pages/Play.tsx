@@ -42,7 +42,7 @@ const Play: FC = () => {
 					<Typography variant="h4" textAlign="center" mb={5} color="primary">
 						Set: {set?.name}
 					</Typography>
-					<FlashCards allFlashcards={flashcards ?? []} />
+					<FlashCards allFlashcards={flashcards ?? []} setId={setId ?? ''} />
 				</>
 			)}
 		</>

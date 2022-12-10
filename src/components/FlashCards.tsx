@@ -12,9 +12,11 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 
 import { Flashcard } from '../utils/firebase/db';
+import { Link } from 'react-router-dom';
 
 export type Props = {
 	allFlashcards: Flashcard[];
+	setId: string;
 };
 
 const switchAnimation = keyframes`
@@ -32,11 +34,22 @@ const switchAnimation = keyframes`
 
 type IndexedFlashcard = Flashcard & { id: number };
 
-const SetsList: FC<Props> = ({ allFlashcards }: Props) => {
+const shuffle = (originalArray: any[]): any[] => {
+	const array = [...originalArray];
+	for (let i = array.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[array[i], array[j]] = [array[j], array[i]];
+	}
+	return array;
+};
+
+const SetsList: FC<Props> = ({ allFlashcards, setId }: Props) => {
 	const [openedSide, setOpenedSide] = useState<'front' | 'back'>('front');
 	const [active, setActive] = useState(false);
 	const [flashcards, setFlashcards] = useState<IndexedFlashcard[]>(
-		allFlashcards.map((flashcard, index) => ({ ...flashcard, id: index }))
+		shuffle(
+			allFlashcards.map((flashcard, index) => ({ ...flashcard, id: index }))
+		)
 	);
 	const [correctlyAnswered, setCorrectlyAnswered] = useState<number | null>(
 		null
@@ -52,7 +65,6 @@ const SetsList: FC<Props> = ({ allFlashcards }: Props) => {
 	);
 
 	const switchCurrentCard = useCallback(() => {
-		console.log(flashcards);
 		setActive(true);
 		setTimeout(() => {
 			setActive(false);
@@ -70,6 +82,17 @@ const SetsList: FC<Props> = ({ allFlashcards }: Props) => {
 			withoutFirstCard.shift();
 			return withoutFirstCard;
 		});
+	};
+
+	const resetGame = () => {
+		setFlashcards(
+			shuffle(
+				allFlashcards.map((flashcard, index) => ({ ...flashcard, id: index }))
+			)
+		);
+		setCorrectlyAnswered(null);
+		setOpenedSide('front');
+		setActive(false);
 	};
 
 	return (
@@ -136,8 +159,10 @@ const SetsList: FC<Props> = ({ allFlashcards }: Props) => {
 							Congratulation! You have gone through all the cards.
 						</Typography>
 						<div>
-							<Button>Play again</Button>
-							<Button>Return to set</Button>
+							<Button onClick={() => resetGame()}>Play again</Button>
+							<Button component={Link} to={`/set/${setId}`}>
+								Return to set
+							</Button>
 						</div>
 					</Box>
 				)}
@@ -159,7 +184,8 @@ const SetsList: FC<Props> = ({ allFlashcards }: Props) => {
 			{gameStarted && (
 				<Box mt={3}>
 					<Typography>
-						Correctly answered: {correctlyAnswered}/{allFlashcards.length}
+						Correctly answered: {correctlyAnswered}/
+						{allFlashcards.length - flashcards.length}
 					</Typography>
 				</Box>
 			)}
