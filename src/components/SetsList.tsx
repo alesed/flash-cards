@@ -44,8 +44,9 @@ const SetsList: FC<Props> = ({ sets, title }: Props) => (
 						'flexDirection': 'row',
 						'justifyContent': 'space-between',
 						'p': 3,
+						'transition': 'background-color .5s ease-in-out',
 						'&:hover': {
-							backgroundColor: 'primary.light'
+							backgroundColor: '#fbfbfb'
 						}
 					}}
 				>
