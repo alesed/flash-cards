@@ -22,7 +22,9 @@ const App = () => {
 		{ name: 'Home', path: '/', component: <Home /> },
 		{ name: 'Sets', path: '/sets', component: <Sets /> }
 	];
-	const hiddenPages: AppPage[] = [];
+	const hiddenPages: AppPage[] = [
+		{ name: 'User Sets', path: '/user-sets', component: <UserSets /> }
+	];
 
 	return (
 		<UserProvider>
@@ -39,7 +41,6 @@ const App = () => {
 								/>
 							))}
 							<Route path="/login" element={<Login />} />
-							<Route path="/user-sets" element={<UserSets />} />
 							<Route path="/set/:setId/play" element={<Play />} />
 						</Routes>
 					</Container>

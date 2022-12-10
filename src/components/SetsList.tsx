@@ -14,48 +14,51 @@ export type FlashcardsSetWithStats = FlashcardsSet & {
 	flashCardsCount: number;
 };
 
-const SetsList: FC<Props> = ({ sets, title }: Props) => (
-	<>
-		<Box>
-			<Typography variant="h1" textAlign="center">
-				{title}
-			</Typography>
-		</Box>
+const SetsList: FC<Props> = ({ sets, title }: Props) => {
+	const noSets = sets && !sets.length;
+	return (
+		<>
+			<Box>
+				<Typography variant="h3" textAlign="center">
+					{title}
+				</Typography>
+			</Box>
 
-		{sets && !sets.length && (
-			<Typography
-				variant="h5"
-				textAlign="center"
-				sx={{ fontWeight: 'light', mt: 3 }}
-			>
-				No sets found
-			</Typography>
-		)}
-
-		{sets?.map(set => (
-			<Link
-				key={set.name}
-				to={`/set/${set.id}`}
-				style={{ textDecoration: 'none', color: 'inherit' }}
-			>
-				<Card
-					sx={{
-						'display': 'flex',
-						'flexDirection': 'row',
-						'justifyContent': 'space-between',
-						'p': 3,
-						'transition': 'background-color .5s ease-in-out',
-						'&:hover': {
-							backgroundColor: '#fbfbfb'
-						}
-					}}
+			{noSets && (
+				<Typography
+					variant="h5"
+					textAlign="center"
+					sx={{ fontWeight: 'light', mt: 3 }}
 				>
-					<Typography>{set.name}</Typography>
-					<Typography>{set.flashCardsCount} flashcards</Typography>
-				</Card>
-			</Link>
-		))}
-	</>
-);
+					No sets found
+				</Typography>
+			)}
+
+			{sets?.map(set => (
+				<Link
+					key={set.name}
+					to={`/set/${set.id}`}
+					style={{ textDecoration: 'none', color: 'inherit' }}
+				>
+					<Card
+						sx={{
+							'display': 'flex',
+							'flexDirection': 'row',
+							'justifyContent': 'space-between',
+							'p': 3,
+							'transition': 'background-color .5s ease-in-out',
+							'&:hover': {
+								backgroundColor: '#fbfbfb'
+							}
+						}}
+					>
+						<Typography>{set.name}</Typography>
+						<Typography>{set.flashCardsCount} flashcards</Typography>
+					</Card>
+				</Link>
+			))}
+		</>
+	);
+};
 
 export default SetsList;
