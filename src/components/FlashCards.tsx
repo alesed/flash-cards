@@ -10,9 +10,9 @@ import {
 import { FC, useCallback, useMemo, useState } from 'react';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { Link } from 'react-router-dom';
 
 import { Flashcard } from '../utils/firebase/db';
-import { Link } from 'react-router-dom';
 
 export type Props = {
 	allFlashcards: Flashcard[];
@@ -32,9 +32,7 @@ const switchAnimation = keyframes`
 
 `;
 
-type IndexedFlashcard = Flashcard & { id: number };
-
-const shuffle = (originalArray: any[]): any[] => {
+const shuffle = (originalArray: Flashcard[]): Flashcard[] => {
 	const array = [...originalArray];
 	for (let i = array.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1));
@@ -46,10 +44,8 @@ const shuffle = (originalArray: any[]): any[] => {
 const SetsList: FC<Props> = ({ allFlashcards, setId }: Props) => {
 	const [openedSide, setOpenedSide] = useState<'front' | 'back'>('front');
 	const [active, setActive] = useState(false);
-	const [flashcards, setFlashcards] = useState<IndexedFlashcard[]>(
-		shuffle(
-			allFlashcards.map((flashcard, index) => ({ ...flashcard, id: index }))
-		)
+	const [flashcards, setFlashcards] = useState<Flashcard[]>(
+		shuffle(allFlashcards)
 	);
 	const [correctlyAnswered, setCorrectlyAnswered] = useState<number | null>(
 		null
@@ -85,11 +81,7 @@ const SetsList: FC<Props> = ({ allFlashcards, setId }: Props) => {
 	};
 
 	const resetGame = () => {
-		setFlashcards(
-			shuffle(
-				allFlashcards.map((flashcard, index) => ({ ...flashcard, id: index }))
-			)
-		);
+		setFlashcards(shuffle(allFlashcards));
 		setCorrectlyAnswered(null);
 		setOpenedSide('front');
 		setActive(false);
@@ -116,9 +108,8 @@ const SetsList: FC<Props> = ({ allFlashcards, setId }: Props) => {
 					height: '40vh'
 				}}
 			>
-				{flashcards.slice(0, 2).map((flashcard, index) => (
+				{flashcards[0] && (
 					<Card
-						key={flashcard.id}
 						className={active ? 'active' : ''}
 						sx={{
 							'width': '100%',
@@ -128,22 +119,19 @@ const SetsList: FC<Props> = ({ allFlashcards, setId }: Props) => {
 							'justifyContent': 'center',
 							'cursor': 'pointer',
 							'userSelect': 'none',
-							'position': 'absolute',
-							'top': 0,
-							'zIndex': -index,
 							'&.active': {
 								animation: `${switchAnimation} .15s ease-in-out`
 							}
 						}}
-						onClick={index === 0 ? switchCurrentCard : undefined}
+						onClick={switchCurrentCard}
 					>
 						<Box>
 							<Typography variant="body1" textAlign="center">
-								{flashcard[openedSide]}
+								{flashcards[0][openedSide]}
 							</Typography>
 						</Box>
 					</Card>
-				))}
+				)}
 				{gameFinished && (
 					<Box
 						sx={{
