@@ -194,6 +194,16 @@ const Navbar = ({ title, pages }: Props) => {
 									<Typography textAlign="center">{user.email}</Typography>
 								</MenuItem>
 							)}
+							{user && (
+								<Link
+									to="/user-sets"
+									style={{ textDecoration: 'none', color: 'inherit' }}
+								>
+									<MenuItem onClick={handleCloseUserMenu}>
+										<Typography textAlign="center">My sets</Typography>
+									</MenuItem>
+								</Link>
+							)}
 							{!user && (
 								<Link
 									to="/login"

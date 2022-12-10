@@ -7,6 +7,7 @@ import { UserProvider } from './hooks/useLoggedInUser';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Sets from './pages/Sets';
+import UserSets from './pages/UserSets';
 import { theme } from './utils/theme';
 
 export type AppPage = {
@@ -20,7 +21,9 @@ const App = () => {
 		{ name: 'Home', path: '/', component: <Home /> },
 		{ name: 'Sets', path: '/sets', component: <Sets /> }
 	];
-	const hiddenPages: AppPage[] = [];
+	const hiddenPages: AppPage[] = [
+		{ name: 'User Sets', path: '/user-sets', component: <UserSets /> }
+	];
 
 	return (
 		<UserProvider>
