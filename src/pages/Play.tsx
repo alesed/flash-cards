@@ -1,36 +1,13 @@
 import { Typography } from '@mui/material';
-import { getDoc, getDocs, query, where } from 'firebase/firestore';
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { useParams } from 'react-router-dom';
 
 import FlashCards from '../components/FlashCards';
-import {
-	Flashcard,
-	flashcardsCollection,
-	FlashcardsSet,
-	setsDocument
-} from '../utils/firebase/db';
+import useSetWithFlashcard from '../hooks/useSetWithFlashcard';
 
 const Play: FC = () => {
 	const { setId } = useParams<{ setId: string }>();
-	const [set, setSet] = useState<FlashcardsSet | null>(null);
-	const [flashcards, setFlashcards] = useState<Flashcard[] | null>(null);
-
-	const getData = async () => {
-		if (!setId) {
-			return;
-		}
-		const currentSet = await getDoc(setsDocument(setId));
-		const flashcards = await getDocs(
-			query(flashcardsCollection, where('setId', '==', setId))
-		);
-		setSet(currentSet.data() ?? null);
-		setFlashcards(flashcards.docs.map(doc => doc.data()));
-	};
-
-	useEffect(() => {
-		getData();
-	}, [setId]);
+	const { set, flashcards } = useSetWithFlashcard(setId);
 
 	return (
 		<>
