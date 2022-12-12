@@ -126,7 +126,7 @@ const SetsList: FC<Props> = ({ allFlashcards, setId }: Props) => {
 						onClick={switchCurrentCard}
 					>
 						<Box>
-							<Typography variant="body1" textAlign="center">
+							<Typography fontSize={24} variant="body1" textAlign="center">
 								{flashcards[0][openedSide]}
 							</Typography>
 						</Box>

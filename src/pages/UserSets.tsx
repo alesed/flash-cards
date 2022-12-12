@@ -1,17 +1,15 @@
 import { getDocs, onSnapshot } from 'firebase/firestore';
 import { FC, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import SetsList, { FlashcardsSetWithStats } from '../components/SetsList';
 import useLoggedInUser from '../hooks/useLoggedInUser';
-import {
-	flashcardsCollection,
-	FlashcardsSet,
-	setsCollection
-} from '../utils/firebase/db';
+import { flashcardsCollection, setsCollection } from '../utils/firebase/db';
 
 const UserSets: FC = () => {
 	const [sets, setSets] = useState<FlashcardsSetWithStats[] | null>(null);
 	const user = useLoggedInUser();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const unsubscribe = onSnapshot(setsCollection, async snapshot => {
@@ -31,7 +29,13 @@ const UserSets: FC = () => {
 		return () => {
 			unsubscribe();
 		};
-	});
+	}, [setsCollection]);
+
+	useEffect(() => {
+		if (!user) {
+			navigate('/login');
+		}
+	}, [user]);
 
 	return <SetsList sets={sets} title="My sets" />;
 };

@@ -7,6 +7,7 @@ import { UserProvider } from './hooks/useLoggedInUser';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Play from './pages/Play';
+import SetDetail from './pages/SetDetail';
 import Sets from './pages/Sets';
 import UserSets from './pages/UserSets';
 import { theme } from './utils/theme';
@@ -23,7 +24,9 @@ const App = () => {
 		{ name: 'Sets', path: '/sets', component: <Sets /> }
 	];
 	const hiddenPages: AppPage[] = [
-		{ name: 'User Sets', path: '/user-sets', component: <UserSets /> }
+		{ name: 'User Sets', path: '/user-sets', component: <UserSets /> },
+		{ name: 'SetDetail', path: '/set/:setId', component: <SetDetail /> },
+		{ name: 'Play', path: '/set/:setId/play', component: <Play /> }
 	];
 
 	return (
@@ -41,7 +44,6 @@ const App = () => {
 								/>
 							))}
 							<Route path="/login" element={<Login />} />
-							<Route path="/set/:setId/play" element={<Play />} />
 						</Routes>
 					</Container>
 				</BrowserRouter>

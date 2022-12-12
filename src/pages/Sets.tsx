@@ -30,7 +30,7 @@ const Sets: FC = () => {
 		return () => {
 			unsubscribe();
 		};
-	});
+	}, [setsCollection]);
 
 	return <SetsList sets={sets} title="All sets" />;
 };
