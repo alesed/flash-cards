@@ -1,17 +1,12 @@
 import { getDocs, onSnapshot, QuerySnapshot } from 'firebase/firestore';
 import { FC, useEffect, useState } from 'react';
 
-import SetsList from '../components/SetsList';
+import SetsList, { FlashcardsSetWithStats } from '../components/SetsList';
 import {
 	flashcardsCollection,
 	FlashcardsSet,
 	setsCollection
 } from '../utils/firebase/db';
-
-export type FlashcardsSetWithStats = FlashcardsSet & {
-	id: string;
-	flashCardsCount: number;
-};
 
 const Sets: FC = () => {
 	const [sets, setSets] = useState<FlashcardsSetWithStats[] | null>(null);
@@ -35,7 +30,7 @@ const Sets: FC = () => {
 		return () => {
 			unsubscribe();
 		};
-	});
+	}, [setsCollection]);
 
 	return <SetsList sets={sets} title="All sets" />;
 };
