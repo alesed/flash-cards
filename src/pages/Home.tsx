@@ -32,8 +32,8 @@ const Home: FC = () => (
 					Study effectively with flash cards
 				</Typography>
 				<Typography fontSize={20} mb={4} variant="subtitle1">
-					Our app allows you to simply create a set of flash cards. Use them to
-					practise or and share them with others.
+					Our app allows you to easily create a set of flash cards. Use them to
+					practise or share them with others.
 				</Typography>
 				<Box>
 					<Button component={Link} to="/user-sets" variant="contained">

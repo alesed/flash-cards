@@ -18,7 +18,7 @@ const SetsList: FC<Props> = ({ sets, title }: Props) => {
 	const noSets = sets && !sets.length;
 	return (
 		<>
-			<Box>
+			<Box mb={2}>
 				<Typography variant="h3" textAlign="center">
 					{title}
 				</Typography>
