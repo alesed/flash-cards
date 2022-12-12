@@ -4,11 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import SetsList, { FlashcardsSetWithStats } from '../components/SetsList';
 import useLoggedInUser from '../hooks/useLoggedInUser';
-import {
-	flashcardsCollection,
-	FlashcardsSet,
-	setsCollection
-} from '../utils/firebase/db';
+import { flashcardsCollection, setsCollection } from '../utils/firebase/db';
 
 const UserSets: FC = () => {
 	const [sets, setSets] = useState<FlashcardsSetWithStats[] | null>(null);
@@ -33,7 +29,7 @@ const UserSets: FC = () => {
 		return () => {
 			unsubscribe();
 		};
-	});
+	}, [setsCollection]);
 
 	useEffect(() => {
 		if (!user) {
