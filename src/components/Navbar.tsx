@@ -14,9 +14,9 @@ import MenuItem from '@mui/material/MenuItem';
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import { AppPage } from '../../App';
-import useLoggedInUser from '../../hooks/useLoggedInUser';
-import { signOut } from '../../utils/firebase/auth';
+import { AppPage } from '../App';
+import useLoggedInUser from '../hooks/useLoggedInUser';
+import { signOut } from '../utils/firebase/auth';
 
 type Props = {
 	title: string;

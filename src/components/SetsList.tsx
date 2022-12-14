@@ -6,7 +6,6 @@ import { FlashcardsSet } from '../utils/firebase/db';
 
 export type Props = {
 	sets: FlashcardsSetWithStats[] | null;
-	title: string;
 };
 
 export type FlashcardsSetWithStats = FlashcardsSet & {
@@ -14,16 +13,10 @@ export type FlashcardsSetWithStats = FlashcardsSet & {
 	flashCardsCount: number;
 };
 
-const SetsList: FC<Props> = ({ sets, title }: Props) => {
+const SetsList: FC<Props> = ({ sets }: Props) => {
 	const noSets = sets && !sets.length;
 	return (
 		<>
-			<Box mb={2}>
-				<Typography variant="h3" textAlign="center">
-					{title}
-				</Typography>
-			</Box>
-
 			{noSets && (
 				<Typography
 					variant="h5"

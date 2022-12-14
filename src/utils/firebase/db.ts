@@ -14,6 +14,7 @@ const db = getFirestore();
 // Sets
 export type FlashcardsSet = {
 	name: string;
+	isPrivate: boolean;
 	userId: string;
 };
 
