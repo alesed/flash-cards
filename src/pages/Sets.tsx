@@ -1,6 +1,12 @@
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { getDocs, onSnapshot, QuerySnapshot } from 'firebase/firestore';
+import {
+	getDocs,
+	onSnapshot,
+	query,
+	QuerySnapshot,
+	where
+} from 'firebase/firestore';
 import { FC, useEffect, useState } from 'react';
 
 import SetsList, { FlashcardsSetWithStats } from '../components/SetsList';
@@ -14,7 +20,9 @@ const Sets: FC = () => {
 	const [sets, setSets] = useState<FlashcardsSetWithStats[] | null>(null);
 
 	const loadSets = async (snapshot: QuerySnapshot<FlashcardsSet>) => {
-		const flashcards = await getDocs(flashcardsCollection);
+		const flashcards = await getDocs(
+			query(flashcardsCollection, where('isPrivate', '==', false))
+		);
 		setSets(
 			snapshot.docs
 				.map(doc => ({ ...doc.data(), id: doc.id }))
