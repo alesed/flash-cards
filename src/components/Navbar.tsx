@@ -119,24 +119,24 @@ const Navbar = ({ title, pages }: Props) => {
 					<ViewCarouselIcon
 						sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}
 					/>
-					<Typography
-						variant="h5"
-						noWrap
-						component="a"
-						href=""
-						sx={{
-							mr: 2,
-							display: { xs: 'flex', md: 'none' },
-							flexGrow: 1,
-							fontFamily: 'monospace',
-							fontWeight: 700,
-							letterSpacing: '.3rem',
-							color: 'inherit',
-							textDecoration: 'none'
-						}}
-					>
-						{title}
-					</Typography>
+					<Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+						<Typography
+							variant="h5"
+							noWrap
+							sx={{
+								mr: 2,
+								display: { xs: 'flex', md: 'none' },
+								flexGrow: 1,
+								fontFamily: 'monospace',
+								fontWeight: 700,
+								letterSpacing: '.3rem',
+								color: 'inherit',
+								textDecoration: 'none'
+							}}
+						>
+							{title}
+						</Typography>
+					</Link>
 					<Box
 						sx={{
 							flexGrow: 1,
@@ -168,10 +168,9 @@ const Navbar = ({ title, pages }: Props) => {
 					<Box sx={{ flexGrow: 0 }}>
 						<Tooltip title="Open settings">
 							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-								<Avatar
-									alt={user?.email?.toUpperCase()}
-									src="/static/images/avatar/2.jpg"
-								/>
+								<Avatar alt={user?.email?.toUpperCase()}>
+									{user?.email?.toUpperCase()[0]}
+								</Avatar>
 							</IconButton>
 						</Tooltip>
 						<Menu
