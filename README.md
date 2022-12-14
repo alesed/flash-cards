@@ -5,7 +5,7 @@ School project in React for creating sets of cards to practice before exam.
 ## Functionalities
 
 1. Create a variety of cards with question and solution
-2. Save cards to sets with a name and category
+2. Save cards to sets with a name
 3. Set visibility of sets for other users
 4. Register/Login functionality to be able to save sets of cards
 5. Practice on selected set of cards

@@ -2,8 +2,9 @@ import { Container } from '@mui/material';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/Navbar';
 import { UserProvider } from './hooks/useLoggedInUser';
+import Create from './pages/Create';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Play from './pages/Play';
@@ -26,7 +27,9 @@ const App = () => {
 	const hiddenPages: AppPage[] = [
 		{ name: 'User Sets', path: '/user-sets', component: <UserSets /> },
 		{ name: 'SetDetail', path: '/set/:setId', component: <SetDetail /> },
-		{ name: 'Play', path: '/set/:setId/play', component: <Play /> }
+		{ name: 'Play', path: '/set/:setId/play', component: <Play /> },
+		{ name: 'Login', path: '/login', component: <Login /> },
+		{ name: 'Create Set', path: '/create', component: <Create /> }
 	];
 
 	return (
@@ -43,7 +46,6 @@ const App = () => {
 									element={page.component}
 								/>
 							))}
-							<Route path="/login" element={<Login />} />
 						</Routes>
 					</Container>
 				</BrowserRouter>

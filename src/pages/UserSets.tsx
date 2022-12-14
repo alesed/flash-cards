@@ -1,6 +1,8 @@
+import AddIcon from '@mui/icons-material/Add';
+import { Box, Button, Typography } from '@mui/material';
 import { getDocs, onSnapshot } from 'firebase/firestore';
 import { FC, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import SetsList, { FlashcardsSetWithStats } from '../components/SetsList';
 import useLoggedInUser from '../hooks/useLoggedInUser';
@@ -37,7 +39,26 @@ const UserSets: FC = () => {
 		}
 	}, [user]);
 
-	return <SetsList sets={sets} title="My sets" />;
+	return (
+		<>
+			<Box mb={2}>
+				<Typography variant="h3" textAlign="center">
+					My sets
+				</Typography>
+			</Box>
+			<Box m={2} sx={{ display: 'flex', justifyContent: 'center' }}>
+				<Button
+					component={Link}
+					to="/create"
+					variant="contained"
+					startIcon={<AddIcon />}
+				>
+					Create new
+				</Button>
+			</Box>
+			<SetsList sets={sets} />
+		</>
+	);
 };
 
 export default UserSets;

@@ -1,4 +1,12 @@
-import { getDocs, onSnapshot, QuerySnapshot } from 'firebase/firestore';
+import { Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import {
+	getDocs,
+	onSnapshot,
+	query,
+	QuerySnapshot,
+	where
+} from 'firebase/firestore';
 import { FC, useEffect, useState } from 'react';
 
 import SetsList, { FlashcardsSetWithStats } from '../components/SetsList';
@@ -22,6 +30,7 @@ const Sets: FC = () => {
 						doc => doc.data().setId === data.id
 					).length
 				}))
+				.filter(set => set.isPrivate === false)
 		);
 	};
 
@@ -32,7 +41,16 @@ const Sets: FC = () => {
 		};
 	}, [setsCollection]);
 
-	return <SetsList sets={sets} title="All sets" />;
+	return (
+		<>
+			<Box mb={2}>
+				<Typography variant="h3" textAlign="center">
+					All sets
+				</Typography>
+			</Box>
+			<SetsList sets={sets} />
+		</>
+	);
 };
 
 export default Sets;
