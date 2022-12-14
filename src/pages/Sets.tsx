@@ -20,9 +20,7 @@ const Sets: FC = () => {
 	const [sets, setSets] = useState<FlashcardsSetWithStats[] | null>(null);
 
 	const loadSets = async (snapshot: QuerySnapshot<FlashcardsSet>) => {
-		const flashcards = await getDocs(
-			query(flashcardsCollection, where('isPrivate', '==', false))
-		);
+		const flashcards = await getDocs(flashcardsCollection);
 		setSets(
 			snapshot.docs
 				.map(doc => ({ ...doc.data(), id: doc.id }))
@@ -32,6 +30,7 @@ const Sets: FC = () => {
 						doc => doc.data().setId === data.id
 					).length
 				}))
+				.filter(set => set.isPrivate === false)
 		);
 	};
 
